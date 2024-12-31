@@ -15,7 +15,7 @@ struct InboxRowView: View {
                 .frame(width: 65, height: 65)
                 .foregroundStyle(Color(.systemGray4))
             VStack(alignment: .leading){
-                Text("Abhijit Saha")
+                Text("Bruce Wayne")
                     .font(.headline)
                 Text("Some text message for now that spans more than one line")
                     .font(.subheadline)

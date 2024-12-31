@@ -33,7 +33,7 @@ struct NewMessageView: View {
                                     .resizable()
                                     .foregroundStyle(Color(.systemGray4))
                                     .frame(width: 30, height: 30)
-                                Text("Abhijit Saha")
+                                Text("Sam Altman")
                                     .fontWeight(.semibold)
                             } .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading)
