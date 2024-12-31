@@ -36,7 +36,9 @@ struct ActiveNowView: View {
             } .padding()
             
             
-        } .scrollIndicators(.hidden)
+        }
+        .frame(height: 120)
+        .scrollIndicators(.hidden)
     }
 }
 
