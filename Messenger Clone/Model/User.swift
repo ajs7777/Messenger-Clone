@@ -11,9 +11,9 @@ struct User: Identifiable, Codable, Hashable {
     var id  = NSUUID().uuidString
     var fullName: String
     var email: String
-    var imageUrl: String
+    var profileImageUrl: String
     
     static let MOCK_DATA = (
-        User(fullName: "Bruce Wayne", email: "brucewayne@gmail.com", imageUrl: "bruce" )
+        User(fullName: "Bruce Wayne", email: "brucewayne@gmail.com", profileImageUrl: "bruce" )
         )
 }
