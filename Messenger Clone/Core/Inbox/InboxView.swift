@@ -24,15 +24,21 @@ struct InboxView: View {
                 .listStyle(PlainListStyle())
                 .frame(height: UIScreen.main.bounds.height - 120)
             }
+            .navigationDestination(for: User.self, destination: { user in
+                ProfileView(user: user)
+            })
             .fullScreenCover(isPresented: $showNewMessageView, content: {
                 NewMessageView()
             })
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack{
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
+                        NavigationLink(value: User.MOCK_DATA) {
+                            Image(User.MOCK_DATA.imageUrl)
+                                .resizable()
+                                .frame(width: 32, height: 32)
+                                .clipShape(Circle())
+                        }
                         Text("Chats")
                             .font(.largeTitle)
                             .bold()
