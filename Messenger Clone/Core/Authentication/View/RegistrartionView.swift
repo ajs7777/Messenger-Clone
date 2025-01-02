@@ -9,9 +9,7 @@ import SwiftUI
 
 struct RegistrartionView: View {
     
-    @State private var email = ""
-    @State private var password = ""
-    @State private var fullName = ""
+    @StateObject var vm = RegistrationViewModel()
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -22,21 +20,21 @@ struct RegistrartionView: View {
                 .frame(width: 180, height: 180)
                 .padding()
             VStack(spacing: 8.0) {
-                TextField("Enter your email", text: $email)
+                TextField("Enter your email", text: $vm.email)
                     .font(.subheadline)
                     .padding(12)
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
                     .padding(.horizontal, 24)
                 
-                TextField("Enter your fullname", text: $email)
+                TextField("Enter your fullname", text: $vm.fullname)
                     .font(.subheadline)
                     .padding(12)
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
                     .padding(.horizontal, 24)
                 
-                SecureField("Enter your password", text: $password)
+                SecureField("Enter your password", text: $vm.password)
                     .font(.subheadline)
                     .padding(12)
                     .background(Color(.systemGray6))
@@ -45,7 +43,7 @@ struct RegistrartionView: View {
             }
                         
             Button {
-                
+                Task{try await vm.createUser()}
             } label: {
                 Text("Login")
                     .foregroundStyle(Color(.white))
