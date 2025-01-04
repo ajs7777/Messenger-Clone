@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 
 class AuthService {
     
@@ -19,6 +20,7 @@ class AuthService {
         print("DEBUG: User session \(userSession?.uid)")
     }
     
+    @MainActor
     func login(withemail email: String, password: String) async throws {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -28,10 +30,12 @@ class AuthService {
         }
     }
     
+    @MainActor
     func createUser(withemail email: String, password: String, fullname: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
+            try await self.uplaodUserData(email: email, id: result.user.uid, fullname: fullname)
         } catch  {
             print("failed to create user \(error.localizedDescription)")
         }
@@ -44,5 +48,11 @@ class AuthService {
         } catch  {
             print("failed to sign out user \(error.localizedDescription)")
         }
+    }
+    
+    private func uplaodUserData(email: String, id: String, fullname: String) async throws {
+        let user = User(fullName: fullname, email: email, profileImageUrl: nil)
+        guard let encodedUser =  try? Firestore.Encoder().encode(user) else { return }
+        try await Firestore.firestore().collection("users").document(id).setData(encodedUser)
     }
 }

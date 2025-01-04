@@ -6,12 +6,17 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct User: Identifiable, Codable, Hashable {
-    var id  = NSUUID().uuidString
-    var fullName: String
-    var email: String
+    @DocumentID var uid: String?
+    let fullName: String
+    let email: String
     var profileImageUrl: String?
+    
+    var id : String {
+        return uid ?? NSUUID().uuidString
+    }
     
     static let MOCK_DATA = (
         User(fullName: "Bruce Wayne", email: "brucewayne@gmail.com", profileImageUrl: "bruce" )

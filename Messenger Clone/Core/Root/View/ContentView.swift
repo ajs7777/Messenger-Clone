@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if vm.userSession !== nil {
+            if vm.userSession != nil {
                 InboxView()
             } else {
                 LoginView()
