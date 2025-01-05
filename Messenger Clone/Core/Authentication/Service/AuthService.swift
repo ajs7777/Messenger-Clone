@@ -17,7 +17,8 @@ class AuthService {
     
     init() {
         self.userSession = Auth.auth().currentUser
-        print("DEBUG: User session \(userSession?.uid)")
+        Task { try await UserService.shared.fetchCurrentUser() }
+        print("DEBUG: User session \(String(describing: userSession?.uid))")
     }
     
     @MainActor
