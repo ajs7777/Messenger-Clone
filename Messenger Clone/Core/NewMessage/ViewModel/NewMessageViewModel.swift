@@ -10,6 +10,7 @@ import Combine
 import Firebase
 import FirebaseAuth
 
+@MainActor
 class NewMessageViewModel: ObservableObject {
     @Published var users = [User]()
     
@@ -18,6 +19,8 @@ class NewMessageViewModel: ObservableObject {
     }
     
     func fetchUsers() async throws {
-        self.users = try await UserService.fetchallUsers()
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let users = try await UserService.fetchallUsers()
+        self.users = users.filter { $0.uid != currentUid }
     }
 }
